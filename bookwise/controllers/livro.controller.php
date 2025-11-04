@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 require 'dados.php';
 
@@ -10,4 +11,5 @@ $livro = array_pop($filtrado);
 
 $view = 'livro';
 require 'views/template/app.php';
+
 ?>
