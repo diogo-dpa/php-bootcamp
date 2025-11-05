@@ -5,10 +5,6 @@
 
         <!-- Lista de livros -->
 <section class="grid gap-4 grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
-
-
-    
-
     <!-- Livros -->
     
     <?php foreach($livros as $livro): ?>
