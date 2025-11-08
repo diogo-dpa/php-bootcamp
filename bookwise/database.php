@@ -13,12 +13,14 @@ class DB {
      * Returns all books from database
      * @return array<Livro> of Livro objects
      */
-    public function livros(){
+    public function livros($pesquisa = null){
 
-        $query = $this->db->query("select * from livros");
+        $prepare = $this->db->prepare("select * from livros where usuario_id = 1 and titulo like :pesquisa");
 
+        $prepare->bindValue('pesquisa', "%$pesquisa%");
+        $prepare->execute();
 
-        $items = $query->fetchAll();
+        $items = $prepare->fetchAll();
 
         return array_map(fn($item) => Livro::make($item), $items);
     }

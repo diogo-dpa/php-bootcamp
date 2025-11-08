@@ -1,5 +1,5 @@
 <form class="w-full flex space-x-2">
-    <input type="text" placeholder="Pesquisar..." class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1 w-full" name="pesquisar">
+    <input type="text" placeholder="Pesquisar..." name="pesquisa" class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1 w-full" name="pesquisar">
     <button type="submit">Pesquisar</button>
 </form>
 
