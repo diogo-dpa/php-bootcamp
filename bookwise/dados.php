@@ -1,5 +1,13 @@
 <?php
 
+$db = new PDO('sqlite:database.sqlite');
+
+$query = $db->query("select * from livros");
+
+
+
+dd($query->fetchAll());
+
 $livros = [
     ['id' => 1, 'titulo' => 'Livro 1', 'autor' => 'Autor 1', 'avaliacao' => 4.5, 'descricao' => 'Descrição 1'],
     ['id' => 2, 'titulo' => 'Livro 2', 'autor' => 'Autor 2', 'avaliacao' => 4.0, 'descricao' => 'Descrição 2'],
