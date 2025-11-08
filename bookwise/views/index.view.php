@@ -12,13 +12,12 @@
             <div class="flex">
                 <div class="w-1/3">Image</div>
                 <div class="space-y-1">
-                    <a href="/livro?id=<?=$livro['id']?>" class="font-semibold hover:underline"><?=$livro['titulo']?></a>
-                    <div class="text-xs text-italic"><?=$livro['autor']?></div>
-                    <div class="text-xs text-italic"><?=$livro['avaliacao']?></div>
+                    <a href="/livro?id=<?=$livro->id?>" class="font-semibold hover:underline"><?=$livro->titulo?></a>
+                    <div class="text-xs text-italic"><?=$livro->autor?></div>
                 </div>
             </div>
             <div class="text-sm mt-2">
-                <?=$livro['descricao']?>
+                <?=$livro->descricao?>
             </div>
         </div>
     <?php endforeach; ?>

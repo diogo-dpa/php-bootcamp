@@ -2,7 +2,7 @@
 
 
 $db = new DB();
-$db->livros();
+$livros = $db->livros();
 
 view('index', compact('livros'));
 
