@@ -4,37 +4,46 @@ class DB {
 
     private $db;
 
-    public function __construct()
+    public function __construct($config)
     {
-        $this->db = new PDO('sqlite:database.sqlite'); 
+        $dsn = $this->getDSN($config);
+
+        $this->db = new PDO($dsn); 
     }
 
-    /**
-     * Returns all books from database
-     * @return array<Livro> of Livro objects
-     */
-    public function livros($pesquisa = null){
+    private function getDSN($config){
+        $driver = $config['driver'];
+        unset($config['driver']);
 
-        $prepare = $this->db->prepare("select * from livros where usuario_id = 1 and titulo like :pesquisa");
+        $config = [
+            'driver' => 'sqlite',
+            'host' => '127.0.0.1', 
+            'user' => 'root',
+            'dbname' => 'bookwise',
+            'port' => 3306,
+            'charset' => 'utf8mb4',
+            'database' => 'database.sqlite'
+        ];
 
-        $prepare->bindValue('pesquisa', "%$pesquisa%");
-        $prepare->setFetchMode(PDO::FETCH_CLASS, Livro::class);
-        $prepare->execute();
+        $dsn = $driver . ':' . http_build_query($config, '', ';');
+        
+        if ($driver == 'sqlite') {
+            $dsn = $driver . ':' . $config['database'];
+        }
 
-        return $prepare->fetchAll();
+        return $dsn;
     }
 
-    public function livro($id){
-        $prepare = $this->db->prepare("select * from livros where id = :id");
+    public function query($query, $class = null, $params = []){
+        $prepare = $this->db->prepare($query);
+        if ($class){
+            $prepare->setFetchMode(PDO::FETCH_CLASS, Livro::class);
+        }
 
-        $prepare->bindValue('id', $id);
+        $prepare->execute($params);
 
-        // Do the map according to the class. native way
-        $prepare->setFetchMode(PDO::FETCH_CLASS, Livro::class);
-        $prepare->execute();
-
-        return $prepare->fetch();
-    
-        // return array_map(fn($item) => Livro::make($item), $items)[0];
+        return $prepare;
     }
 }
+
+$DB = new DB($config['database']);
