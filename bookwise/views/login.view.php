@@ -1,7 +1,7 @@
 <div class="mt-6 grid grid-cols-2 gap-2">
     <div class="border border-stone-700 rounded p-4">
         <h1 class="border-b border-stone text-stone-400 font-bold px-4 py-2">Login</h1>
-        <form action="" class="p-4 space-y-4">
+        <form class="p-4 space-y-4" method="post">
             <div class="flex flex-col">
                 <label for="email" class="text-stone-500 mb-1">Email</label>
                 <input
