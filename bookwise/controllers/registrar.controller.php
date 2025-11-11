@@ -1,39 +1,16 @@
 <?php 
 
+require '../Validacao.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $validacoes = []
-;
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $email_confirmation = $_POST['email-confirmation'];
-    $senha = $_POST['senha'];
 
-    if (strlen($nome) === 0){
-        $validacoes[] = 'O nome é obrigatório';
-    }
+    $validacao = Validacao::validar([
+        'nome' => ['required'],
+        'email' => ['required', 'email', 'confirmed'],
+        'senha' => ['required', 'min:8', 'max:20', 'strong'],
+    ], $_POST);
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $validacoes[] = 'O email é inválido';
-    }
-
-    if (strlen($email_confirmation) === 0){
-        $validacoes[] = 'O email de confirmação é obrigatório';
-    }
-
-    if ($email != $email_confirmation){
-        $validacoes[] = 'Os emails não conferem';
-    }
-
-    if (strlen($senha) < 8 || strlen($senha) > 20){
-        $validacoes[] = 'A senha deve ter entre 8 e 20 caracteres';
-    }
-
-    if (!str_contains($senha, '*')){
-        $validacoes[] = 'A senha deve conter pelo menos um caractere especial';
-    }
-
-    if (sizeof($validacoes) > 0){
-        $_SESSION['validacoes'] = $validacoes;
+    if ($validacao->naoPassou()) {
         header('location: /login');
         exit();
     }
